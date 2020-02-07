@@ -8,8 +8,14 @@ const useForm = initialInputs => {
         setInputs(inputs => ({ ...inputs,
             [event.target.name]: event.target.value }));
     };
+    const toggleCheck = event => {
+        event.persist();
+        setInputs(inputs => ({...inputs,
+        [event.target.name]: !inputs[event.target.name]}))
+    }
     return {
         handleInputChange,
+        toggleCheck,
         inputs
     };
 };

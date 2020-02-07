@@ -1,12 +1,18 @@
 import React from 'react';
-import { DonorForm } from 'components/DonorForm';
+import DonorForm from 'components/DonorForm';
+import Styled from 'styled-components';
+
+
+const Container = Styled.div`
+    width: 100%;
+`;
 
 function Donors () {
     return (
-        <div>
+        <Container>
             <div>Donors</div>
-            <DonorForm></DonorForm>
-        </div>
+            <DonorForm className="Testing"/>
+        </Container>
     );
 }
 

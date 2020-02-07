@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Flex, Text, FormField, Label, Checkbox } from 'pcln-design-system';
+import { Flex, Text, FormField, Label, Checkbox, Button, Input, Select } from 'pcln-design-system';
 import useForm from '../../hooks/useForm';
 
 
@@ -9,110 +9,123 @@ const SyledName = styled(Text)`
 
 `;
 
-const Container = styled(Flex)`
-
+const StyledField = styled(FormField)`
+    width: 100%;
+    margin-bottom: 10px;
 `;
 
-const FormContainer = styled(Flex)`
-
+const StyledInput = styled(Input)`
+    margin-bottom: 10px;
 `;
 
+const StyledSelect = styled(Select)`
+    width: fit-content;
+    margin-right: 10px;
+`;
+
+const CityInput = styled(Input)`
+    margin-right: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+`;
+
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const CityContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+`;
+const ButtonContainer = styled.div`
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+`;
 const SaveButton = styled(Button)`
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 50%;
 `;
 
 function DonorForm({className, name, phone, email, subscribe, address, city, province, 
-postalCode}) {
-    const initialData = {name: name, phone: phone, 
-        email: email, subscribe: subscribe, address: address,
-    city: city, province: province, postalCode: postalCode}
-    const [inputs, handleInputChange] = useForm(initialData);
+    postalCode}) {
+    const initialData = {name, phone, email, subscribe, address, city, province, 
+        postalCode}
+    const {inputs, handleInputChange, toggleCheck} = useForm(initialData);
     return (
         <Container className={className}>
-            <FormContainer>
+            <FormContainer> 
             <SyledName>Edit {name}</SyledName>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.name)}
-                value={inputs.name}
-                onChange={handleInputChange}
-                id="name"
-                placeholder="Full Name"
-            >
+            <StyledField id="name">
                 <Label>Full Name</Label>
-                <Input></Input>
-            </FormField>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.phone)}
-                value={inputs.phone}
-                onChange={handleInputChange}
-                id="phone"
-                placeholder="Phone Number"
-            >
+                <StyledInput name="name" placeholder="Full Name" onChange={handleInputChange}  value={inputs.name}></StyledInput>
+            </StyledField>
+            <StyledField id="phone">
                 <Label>Phone</Label>
-                <Input></Input>
-            </FormField>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.email)}
-                value={inputs.email}
-                onChange={handleInputChange}
-                id="email"
-                placeholder="Email Address"
-            >
+                <StyledInput name="phone" value={inputs.phone} onChange={handleInputChange} id="phone" placeholder="Phone Number"></StyledInput>
+            </StyledField>
+            <StyledField id="email">
                 <Label>Email Adress</Label>
-                <Input></Input>
-            </FormField>
+                <StyledInput name="email" value={inputs.email} onChange={handleInputChange} placeholder="Email Address"></StyledInput>
+            </StyledField>
             <Label>
-                <Checkbox id="subscribe"/>
+                <Checkbox name="subscribe" checked={inputs.subscribe} onChange={toggleCheck} />
+                Subscribe to email newsletter?
             </Label>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.address)}
-                value={inputs.address}
-                onChange={handleInputChange}
-                id="address"
-                placeholder="Address"
-            >
+            <StyledField id="address" >
                 <Label>Address</Label>
-                <Input></Input>
-            </FormField>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.city)}
-                value={inputs.city}
-                onChange={handleInputChange}
-                id="city"
-                placeholder="City"
-            >
-                <Label>City</Label>
-                <Input></Input>
-            </FormField>
-            <Select>
-
-            </Select>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.name)}
-                value={inputs.name}
-                onChange={handleInputChange}
-                id="email"
-                placeholder="Email Address"
-            >
-                <Label>Email Address</Label>
-                <Input></Input>
-            </FormField>
-            <FormField
-                alwaysShowLabel={Boolean(inputs.postalCode)}
-                value={inputs.postalCode}
-                onChange={handleInputChange}
-                id="postalCode"
-                placeholder="Postal Code"
-            >
+                <StyledInput  name="address" value={inputs.address} onChange={handleInputChange} placeholder="Address"></StyledInput>
+            </StyledField>
+            <CityContainer>
+                <FormField id="city">
+                    <Label>City</Label>
+                    <CityInput name="city" value={inputs.city} onChange={handleInputChange} placeholder="City"></CityInput>
+                </FormField>
+                <FormField>
+                <Label>Province</Label>
+                    <StyledSelect name="province" value={inputs.province} onChange={handleInputChange}>
+                        <option>AB</option>
+                        <option>BC</option>
+                        <option>MB</option>
+                        <option>NB</option>
+                        <option>NL</option>
+                        <option>NS</option>
+                        <option>NU</option>
+                        <option>ON</option>
+                        <option>PE</option>
+                        <option>QC</option>
+                        <option>SK</option>
+                        <option>YT</option>
+                    </StyledSelect>
+                </FormField>
+            </CityContainer>
+            <StyledField id="postalCode" >
                 <Label>Postal Code</Label>
-                <Input></Input>
-            </FormField>
-            </FormContainer>
-            <SaveButton>Save</SaveButton>
+                <StyledInput name="postalCode" value={inputs.postalCode} onChange={handleInputChange} placeholder="Postal Code"></StyledInput>
+            </StyledField> 
+             </FormContainer>
+             <ButtonContainer>
+                <SaveButton>Save</SaveButton>
+             </ButtonContainer>
         </Container>
 
     );
 }
+
 
 DonorForm.displayName = 'DonorForm';
 
@@ -130,15 +143,15 @@ DonorForm.propTypes = {
 };
 
 DonorForm.defaultProps = {
-    className: '',
-    name: '',
-    phone: '', 
-    email: '', 
+    className: 'donorForm',
+    name: 'John Doe',
+    phone: '555-555-555', 
+    email: 'johndoe@gmail.com', 
     subscribe: true, 
-    address: '',
-    city: '', 
-    province: 'MB', 
-    postalCode: ''
+    address: '123 Fake St.',
+    city: 'Winnipeg', 
+    province: 'NL', 
+    postalCode: 'RRRRRR'
 };
 
 export default memo(DonorForm);
