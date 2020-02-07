@@ -2,7 +2,9 @@ import React from 'react';
 
 function Donor () {
     return (
-        <div>Donor</div>
+        <div>
+            <div>Donor</div>
+        </div>
     );
 }
 

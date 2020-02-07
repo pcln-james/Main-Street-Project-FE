@@ -1,8 +1,12 @@
 import React from 'react';
+import { DonorForm } from 'components/DonorForm';
 
 function Donors () {
     return (
-        <div>Donors</div>
+        <div>
+            <div>Donors</div>
+            <DonorForm></DonorForm>
+        </div>
     );
 }
 
